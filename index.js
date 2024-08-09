@@ -36,16 +36,14 @@ document.getElementById(Math.floor(Math.random() * 9)).appendChild(mole);
 
 const point = document.getElementById("store");
 let result = 0;
-let lol = [
-  document.getElementById(Math.floor(Math.random() * 9)).appendChild(mole),
-  document.getElementById(Math.floor(Math.random() * 9)).appendChild(monster),
-];
+
 function ok() {
   document.getElementById(Math.floor(Math.random() * 9)).appendChild(mole),
 result += 10;
   point.innerHTML = result;
 } 
 mole.onclick = ok;
+
 
 
 function ko() {
@@ -56,9 +54,37 @@ function ko() {
 monster.onclick = ko;
 interval = setInterval(monsterpop, 500);
  interval2 = setInterval(molepop, 500);
+//  interval3 = setInterval(molepush, 500);
+
+
+function molepush() {
+ random = Math.floor(Math.random() * 9);
+ return random.toString();
+}
+let molemath = molepush();
+setInterval(function(){molemath=molepush()}, 500)
+
 function molepop() {
-    document.getElementById(Math.floor(Math.random() * 9)).appendChild(mole);
+    document.getElementById(molemath).appendChild(mole); 
+    console.log(molemath)
 }
+
 function monsterpop() {
-    document.getElementById(Math.floor(Math.random() * 9)).appendChild(monster);
+  let randomNum = molepush();
+  console.log(randomNum)
+  mole.onclick = 0;
+  if(molemath === randomNum){
+    if(randomNum + 1 > 8){
+      document.getElementById(randomNum - 1).appendChild(monster);
+    } else if (randomNum === 0) {
+     document.getElementById(randomNum + 1).appendChild(monster)
+   }
+    else{
+      document.getElementById(randomNum + 1).appendChild(monster);
+    }
+  }
+   else{
+    document.getElementById(randomNum).appendChild(monster);
+    }
 }
+
